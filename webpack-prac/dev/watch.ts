@@ -7,7 +7,7 @@ let remove: boolean = false
 let timer: NodeJS.Timer | undefined = undefined
 let remain: number = INTERVAL
 
-watch('./src/', { recursive: true }, (eventType, filePath) => {
+watch('./src/', { recursive: true, filter: /(\.js|\.ts)$/ }, (eventType, filePath) => {
     process.stdout.clearLine(0)
     process.stdout.cursorTo(0)
     console.log(`${eventType}: ${filePath}`)

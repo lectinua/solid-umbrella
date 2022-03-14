@@ -6,7 +6,7 @@ module.exports = {
     output: {
         filename: 'lect.js',
         path: path.resolve(__dirname, 'dist'),
-        // libraryTarget: 'window'
+        libraryTarget: 'window'
     },
     module: {
         rules: [
