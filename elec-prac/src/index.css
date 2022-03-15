@@ -1,0 +1,9 @@
+body { margin: 0; background-color: #484848; }
+.ui-title-bar { background-color: #3b3b3b; display: flex; height: 30px; width: 100%; }
+.ui-title-main { flex: 1; }
+.ui-draggable { -webkit-app-region: drag; }
+.ui-right-control { border-left: 1px solid #484848; width: 100px; }
+.ui-control-button { height: 100%; }
+.ui-control-button:hover { background-color: #a65f5f; }
+.ui-control-button:active { background-color: #b25454; }
+.ui-main { margin: 8px; }
