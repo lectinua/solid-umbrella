@@ -1,5 +1,6 @@
 import { app, BrowserWindow } from 'electron'
-import path from 'path'
+import { init } from './src/scripts/event'
+import watcher from './src/scripts/watcher'
 
 let window: BrowserWindow
 
@@ -9,12 +10,16 @@ function createWindow() {
         height: 500,
         titleBarStyle: 'hidden',
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            contextIsolation: false
         }
     })
     window.loadFile('src/index.html')
+        .then(_ => window.webContents.openDevTools())
+
+    init(window)
+    watcher()
 }
 
 app.whenReady().then(createWindow)
 
-require('electron-reloader')(module)

@@ -4,6 +4,6 @@ body { margin: 0; background-color: #484848; }
 .ui-draggable { -webkit-app-region: drag; }
 .ui-right-control { border-left: 1px solid #484848; width: 100px; }
 .ui-control-button { height: 100%; }
-.ui-control-button:hover { background-color: #a65f5f; }
-.ui-control-button:active { background-color: #b25454; }
+.ui-control-button:hover { background-color: #e05656; }
+.ui-control-button:active { background-color: #c46262; }
 .ui-main { margin: 8px; }
