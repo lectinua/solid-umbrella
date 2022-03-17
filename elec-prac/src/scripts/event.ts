@@ -1,8 +1,12 @@
-import { ipcMain, BrowserWindow } from 'electron'
+import {BrowserWindow} from 'electron'
+import {BaseEvent} from './define/event'
 
-export function init(window: BrowserWindow) {
-    ipcMain.on('window-close', (e, payload) => {
-        window.close()
-        e.sender.send('window-close-r', 'test')
-    })
+const events: BaseEvent[] = [
+    new BaseEvent('window-close', window => window.close())
+]
+const eventNames = events.map(e => e.channel)
+
+export function bindEvents(window: BrowserWindow) {
+    events.forEach(e => { e.bind(window); console.log(e.channel) })
+    new BaseEvent('get-event-names', undefined, eventNames).bind(window)
 }

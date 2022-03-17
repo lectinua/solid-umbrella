@@ -1,5 +1,5 @@
 import { app, BrowserWindow } from 'electron'
-import { init } from './src/scripts/event'
+import { bindEvents } from './src/scripts/event'
 import watcher from './src/scripts/watcher'
 
 let window: BrowserWindow
@@ -15,9 +15,11 @@ function createWindow() {
         }
     })
     window.loadFile('src/index.html')
-        .then(_ => window.webContents.openDevTools())
+        .then(_ => {
+            window.webContents.openDevTools()
+            bindEvents(window)
+        })
 
-    init(window)
     watcher()
 }
 
