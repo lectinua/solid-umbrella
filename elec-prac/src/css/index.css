@@ -1,0 +1,12 @@
+body { margin: 0; background-color: #484848; overflow: hidden; }
+.ui-title-bar { background-color: #3b3b3b; display: flex; height: 30px; width: 100%; position: fixed; left: 0; top: 0; }
+.ui-title-main { flex: 1; height: 100% !important; border-radius: 0 !important; }
+.ui-draggable { -webkit-app-region: drag; -webkit-user-select: none; }
+.ui-right-control { width: 100px; }
+.ui-control-button { height: 100% !important; width: 100% !important; cursor: default !important; border-radius: 0 !important; }
+.ui-main { margin: 38px 8px 8px 8px; height: calc(100vh - 46px); overflow-y: auto; }
+.ui-main::-webkit-scrollbar { width: 3px; }
+.ui-main::-webkit-scrollbar-thumb { background-color: #c5c5c5; background-clip: padding-box; }
+.ui-main::-webkit-scrollbar-track { background-color: #888888; }
+.card-panel { margin: 0 !important; }
+.toast { background-color: #6b6b6b !important; margin-top: 0 !important; }

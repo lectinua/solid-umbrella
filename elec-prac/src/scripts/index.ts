@@ -1,5 +1,5 @@
 import jquery from 'jquery'
-import base from './renderer/base'
+import base from './renderer'
 import RenderUtil from './util/render-util'
 
 jquery(() => {

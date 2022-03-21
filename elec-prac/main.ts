@@ -12,13 +12,15 @@ function createWindow() {
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
-        }
+        },
+        maximizable: false,
+        resizable: false
     })
-    window.loadFile('src/index.html')
-        .then(_ => {
-            window.webContents.openDevTools()
-            bindEvents(window)
-        })
+    window.loadFile('src/html/index.html')
+        .then(_ => bindEvents(window))
+        .catch(err => { if (err.code !== 'ERR_ABORTED') throw err })
+
+    // window.webContents.openDevTools()
 
     watcher()
 }
