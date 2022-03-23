@@ -11,11 +11,11 @@ const shell_color = {
 }
 
 export default function() {
-    watch('./src', { recursive: true, filter: /(\.js|\.ts|\.html|\.css)$/ }, (evt, name) => {
+    watch('./src', { recursive: true, filter: /\.(js|ts|html|css|scss)$/ }, (evt, name) => {
         console.log(`${evt}: ${name}`)
 
         const ext = name.substring(name.lastIndexOf('.') + 1)
-        if (ext === 'js' || ext === 'ts') {
+        if (ext === 'js' || ext === 'ts' || ext === 'css' || ext == 'scss') {
             compile()
         }
         reload()

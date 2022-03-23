@@ -20,7 +20,7 @@ function createWindow() {
         .then(_ => bindEvents(window))
         .catch(err => { if (err.code !== 'ERR_ABORTED') throw err })
 
-    // window.webContents.openDevTools()
+    window.webContents.openDevTools()
 
     watcher()
 }

@@ -14,16 +14,13 @@ export abstract class BaseElement extends HTMLElement {
     public constructor() {
         super()
 
-        const tab = this.attributes.getNamedItem('tab')
-        const tabIndent = this.attributes.getNamedItem('tab-indent')
-        let indent: number = 2
+        const tab = this.getAttribute('tab')
+        const tabIndent = this.getAttribute('tab-indent')
         if (tab !== null) {
-            const tabCount = parseInt(tab.value)
+            const tabCount = parseInt(tab)
             const regex = new RegExp(`\n${_.repeat('\t', tabCount)}`, "gi")
-            if (tabIndent !== null) {
-                indent = parseInt(tabIndent.value)
-            }
-            this.innerHTML = _.text2html(this.innerHTML.replace(regex, '\n'), indent)
+            this.innerHTML = _.text2html(this.innerHTML.replace(regex, '\n'),
+                tabIndent !== null ? parseInt(tabIndent) : 2)
         }
 
         this.draw(this)
