@@ -1,6 +1,14 @@
 extends Node
 
+onready var inputField = load('res://scenes/input.tscn')
+onready var font = load("res://resources/font/spoqa.tres")
+
 var timerDeltaArray: Array = []
+
+func set_font(_node: Node, _size: int, _color: Color = Color.black):
+	font.size = _size
+	_node.set("custom_fonts/font", font)
+	_node.add_color_override("font_color", _color)
 
 func timer(_self: Node, _methodName: String, _time: float, _loop: bool = false, _force: bool = false):
 	var timer = find(_self.get_children(), 'name', _methodName)
@@ -33,11 +41,11 @@ func timerDelta(_self: Node, _methodName: String, _frame: int, _loop: bool = fal
 	elif _force:
 		timer.frame = 0
 		
-func stopTimer(_self: Node, _methodName: String, isDelta: bool):
+func stopTimer(_self: Node, _methodName: String, isDelta: bool = false):
 	if isDelta:
 		timerDeltaArray.erase(find(timerDeltaArray, 'name', _methodName))
 	else:
-		find(_self.get_chidren(), 'name', _methodName).stop()
+		find(_self.get_children(), 'name', _methodName).stop()
 
 func find(_array: Array, _getName: String, _findValue):
 	for item in _array:
@@ -71,3 +79,12 @@ class TimerDelta:
 			if loop:
 				frame = 0
 			return not loop
+
+# no arg = infinity
+func showInputField(wait4sec: String):
+	var current = get_tree().get_current_scene()
+	var input = find(current.get_children(), 'name', inputField.get_name())
+	if input == null:
+		input = inputField.instance()
+		current.add_child(input)
+		input.start2wait(wait4sec)
