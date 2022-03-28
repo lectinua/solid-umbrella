@@ -1,7 +1,7 @@
 import {BaseElement} from '../util/base-element'
 
 export class CardPanel extends BaseElement {
-    draw(root: HTMLElement): void {
+    draw(/*root: HTMLElement = this*/): void {
 
         let colors = ['grey', 'darken-2']
         let textColors = ['black-text']
@@ -14,18 +14,21 @@ export class CardPanel extends BaseElement {
             }
         }
 
-        const value = root.innerHTML
-        root.innerHTML = ''
+        const value = this.innerHTML
+        this.innerHTML = ''
 
         const div = document.createElement('div')
         div.classList.add('card-panel', ...colors)
+
+        div.id = this.id
+        this.removeAttribute('id')
 
         const span = document.createElement('span')
         span.classList.add(...textColors)
         span.innerHTML = value
 
         div.appendChild(span)
-        root.appendChild(div)
+        this.replaceWith(div)
     }
 }
 

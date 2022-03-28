@@ -1,5 +1,4 @@
 @import '~materialize-css/dist/css/materialize.min.css';
-@import '~trix/dist/trix.css';
 
 body { margin: 0; background-color: #484848; overflow: hidden; }
 .ui-title-bar { background-color: #3b3b3b; display: flex; height: 30px; width: 100%; position: fixed; left: 0; top: 0; }
@@ -20,8 +19,8 @@ body { margin: 0; background-color: #484848; overflow: hidden; }
 .lc-right { justify-content: flex-end; }
 .lc-border-white { border: 1px solid #ccc; border-radius: 3px; }
 
-.lc-fix-top { position: fixed; top: 12px; left: 15px; }
-.lc-fix-bot { position: fixed; bottom: 12px; right: 15px; }
+.lc-fix-top { position: fixed; top: 15px; left: 21px; }
+.lc-fix-bot { position: fixed; bottom: 15px; right: 21px; }
 
 .hidden { display: none !important; }
 .mt-1 { margin-top: 3px !important; }

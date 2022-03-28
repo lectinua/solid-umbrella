@@ -26,8 +26,7 @@
     "electron": "^17.1.2",
     "exceljs": "^4.3.0",
     "jquery": "^3.6.0",
-    "materialize-css": "^1.0.0-rc.2",
-    "trix": "^2.0.0-alpha.1"
+    "materialize-css": "^1.0.0-rc.2"
   },
   "optionalDependencies": {
     "fsevents": "*"

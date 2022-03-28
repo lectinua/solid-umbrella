@@ -14,23 +14,12 @@
 	</div>
 </div>
 <div class="ui-main" id="root">
-	<card-panel>
+	<card-panel id="child">
 		<div class="lc-line-v">
 			<div class="lc-line-h">
-				<a class="waves-effect btn grey" id="btn-text-editor">TEXT</a>
-				<a class="waves-effect btn grey" id="btn-excel">EXCEL</a>
+				<a class="waves-effect btn grey" id="btn-text">TEXT</a>
 			</div>
 		</div>
-		<card-panel color="grey darken-1 white-text mt-3" id="panel-trix" class="hidden">
-			<form>
-				<trix-toolbar id="trix-tool"></trix-toolbar>
-				<input id="trix-input" type="hidden" name="content">
-				<trix-editor input="trix-input" toolbar="trix-tool"></trix-editor>
-				<div class="lc-line-h lc-right mt-3">
-					<a class="waves-effect btn-flat grey darken-1 text-bold black-text lc-border-white" id="btn-save">SAVE</a>
-				</div>
-			</form>
-		</card-panel>
 	</card-panel>
 	<a class="waves-effect btn-floating grey lc-fix-bot hidden" id="btn-up">
 		<i class="material-icons">arrow_upward</i>
@@ -40,51 +29,15 @@
 <script>
 $(function() {
 	const $obj = {
-		trix: $('#panel-trix'),
-		code: $('#panel-code'),
-		editor: $('#btn-text-editor'),
-		excel: $('#btn-excel'),
-		save: $('#btn-save'),
-		input: $('trix-editor'),
 		up: $('#btn-up'),
 		root: $('#root'),
-		child: $('#root div')
+		child: $('#child'),
+		text: $('#btn-text')
 	}
-	const filepath = 'test.txt'
-	
 	// _.$click($('#btn-test'), () => _.call('get-event-names', undefined, payload => M.toast({ html: payload })))
-	_.$click($obj.editor, () => {
-		$obj.trix.hasClass('hidden') ? readFile() : resetTrix()
-		$obj.trix.toggleClass('hidden')
-		$obj.code.addClass('hidden')
-	})
-	_.$click($obj.excel, () => {
-		$obj.code.toggleClass('hidden')
-		$obj.trix.addClass('hidden')
-		resetTrix()
-	})
-	_.$click($obj.save, () => _.write(filepath, $obj.input.val(), err => M.toast({ html: err == null ? '저장 완료' : '저장 실패' })))
-	
-	function resetTrix() {
-		$obj.input.val('')
-		onTextChange()
-	}
-	function readFile() {
-		_.read(filepath, (err, data) => {
-			M.toast({ html: err != null ? '불러오기 실패' : '불러오기 완료' })
-			$obj.input.val(data)
-			onTextChange()
-		})
-	}
-	$obj.input.on('keydown', onTextChange)
-	function onTextChange() {
-		$obj.up.toggleClass('hidden', $obj.root.outerHeight() > $obj.child.get(0).offsetHeight)
-	}
-	$obj.up.on('click', () => {
-		
-		if ($obj.root.eq(0).scrollTop() > 0) {
-			$obj.root.eq(0).animate({ scrollTop: 0 }, 300);
-		}
+	$obj.up.on('click', () => $obj.root.eq(0).scrollTop() > 0 & $obj.root.eq(0).animate({ scrollTop: 0 }, 300))
+	observer.add(() => $obj.child.outerHeight(), (prev, curr) => {
+		$obj.up.toggleClass('hidden', $obj.root.outerHeight() > $obj.child.outerHeight())
 	})
 })
 </script>

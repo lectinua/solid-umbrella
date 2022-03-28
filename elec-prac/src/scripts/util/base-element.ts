@@ -23,8 +23,8 @@ export abstract class BaseElement extends HTMLElement {
                 tabIndent !== null ? parseInt(tabIndent) : 2)
         }
 
-        this.draw(this)
+        this.draw()
     }
 
-    abstract draw(root: HTMLElement): void
+    abstract draw(/*root: HTMLElement = this*/): void
 }
