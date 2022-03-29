@@ -16,9 +16,14 @@
 <div class="ui-main" id="root">
 	<card-panel id="child">
 		<div class="lc-line-v">
-			<div class="lc-line-h">
-				<a class="waves-effect btn grey" id="btn-text">TEXT</a>
+			<div class="lc-line-h lc-right">
+				<a class="waves-effect btn grey" id="btn-ok">확인</a>
 			</div>
+			<div class="lc-line-h">
+				<input id="test1" placeholder="groupId" class="white-text">
+				<input id="test2" placeholder="fileName" class="white-text">
+			</div>
+			<textarea id="test3" class="white-text" style="height: 200px;" readonly></textarea>
 		</div>
 	</card-panel>
 	<a class="waves-effect btn-floating grey lc-fix-bot hidden" id="btn-up">
@@ -28,17 +33,27 @@
 <script src="../../dist/lect.js"></script>
 <script>
 $(function() {
-	const $obj = {
-		up: $('#btn-up'),
-		root: $('#root'),
-		child: $('#child'),
-		text: $('#btn-text')
-	}
-	// _.$click($('#btn-test'), () => _.call('get-event-names', undefined, payload => M.toast({ html: payload })))
+	const $obj = { up: $('#btn-up'), root: $('#root'), child: $('#child') }
+	// _.$click(() => _.call('get-event-names', undefined, payload => M.toast({ html: payload })), $('#btn-test'))
 	$obj.up.on('click', () => $obj.root.eq(0).scrollTop() > 0 & $obj.root.eq(0).animate({ scrollTop: 0 }, 300))
-	observer.add(() => $obj.child.outerHeight(), (prev, curr) => {
-		$obj.up.toggleClass('hidden', $obj.root.outerHeight() > $obj.child.outerHeight())
-	})
+	observer.add(() => $obj.child.outerHeight(), (prev, curr) => $obj.up.toggleClass('hidden', $obj.root.outerHeight() > $obj.child.outerHeight()))
+	
+	_.$enter(setValue, $('#test1'), $('#test2'))
+	_.$click(setValue, $('#btn-ok'))
+	function setValue() {
+		const groupId = $('#test1').val()
+		const fileName = $('#test2').val()
+		const version = fileName.slice(fileName.lastIndexOf('-') + 1, fileName.lastIndexOf('.jar'))
+		const value = `<dependency>
+\t<groupId>${groupId}</groupId>
+\t<artifactId>${groupId}</artifactId>
+\t<version>${version}</version>
+\t<scope>system</scope>
+\t<systemPath>\${project.basedir}/src/main/resources/webapp/WEB-INF/lib/${fileName}</systemPath>
+</dependency>`
+		$('#test3').val(value)
+		_.copy(value)
+	}
 })
 </script>
 </body>

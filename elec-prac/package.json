@@ -23,6 +23,7 @@
     "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
+    "clipboardy": "^2.3.0",
     "electron": "^17.1.2",
     "exceljs": "^4.3.0",
     "jquery": "^3.6.0",

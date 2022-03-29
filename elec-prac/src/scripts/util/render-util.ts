@@ -1,5 +1,6 @@
 import {ipcRenderer} from 'electron'
 import {writeFile, readFile} from 'fs'
+import clipboard from 'clipboardy'
 
 export default class RenderUtil {
     static call(channel: string, payload?: any, callback?: (payload: any) => void) {
@@ -11,8 +12,17 @@ export default class RenderUtil {
         })
     }
 
-    static $click($obj: JQuery, callback: () => void) {
-        $obj.on('click', callback)
+    static $click(callback: () => void, ...$objs: JQuery[]) {
+        $objs.forEach($obj => $obj.bind('click', callback))
+    }
+
+    static $enter(callback: () => void, ...$objs: JQuery[]) {
+        $objs.forEach($obj => {
+            $obj.bind('keydown', e => {
+                if (e.key === 'Enter')
+                    callback()
+            })
+        })
     }
 
     static write(filepath: string, value: string, callback: (error: Error | null) => void) {
@@ -27,5 +37,13 @@ export default class RenderUtil {
             if (err) console.error(err)
             callback(err, data)
         })
+    }
+
+    static copy(value: string) {
+        clipboard.writeSync(value)
+    }
+
+    static paste(): string {
+        return clipboard.readSync()
     }
 }
