@@ -35,6 +35,7 @@
 $(function() {
 	const $obj = { up: $('#btn-up'), root: $('#root'), child: $('#child') }
 	// _.$click(() => _.call('get-event-names', undefined, payload => M.toast({ html: payload })), $('#btn-test'))
+	// _.$click(() => _.call('open-page', 'test2', undefined), $('#btn-test'))
 	$obj.up.on('click', () => $obj.root.eq(0).scrollTop() > 0 & $obj.root.eq(0).animate({ scrollTop: 0 }, 300))
 	observer.add(() => $obj.child.outerHeight(), (prev, curr) => $obj.up.toggleClass('hidden', $obj.root.outerHeight() > $obj.child.outerHeight()))
 	

@@ -72,4 +72,12 @@ export default class Utility {
         }
         return argv[name]
     }
+
+    static doSomething(trigger: boolean, action: Function) {
+        if (trigger) action()
+    }
+
+    static isNull(value: any) {
+        return value === undefined || value === null
+    }
 }

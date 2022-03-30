@@ -4,7 +4,7 @@ import {define} from './util/base-element'
 import {CardPanel} from './render/Cards'
 
 export default function() {
-    _.$click($('#btn-close'), () => _.call('window-close'))
+    _.$click(() => _.call('window-close'), $('#btn-close'))
 
     define({
         'card-panel': CardPanel
