@@ -1,0 +1,29 @@
+{
+	"extends": "@antfu",
+	"rules": {
+		"brace-style": "off",
+		"@typescript-eslint/brace-style": "off",
+		"comma-dangle": "off",
+		"@typescript-eslint/comma-dangle": "off",
+		"curly": "off",
+		"@typescript-eslint/quotes": "off",
+		"prefer-template": "off",
+		"no-console": "off",
+		"arrow-parens": "off",
+		"vue/first-attribute-linebreak": [
+			"error",
+			{
+				"singleline": "beside",
+				"multiline": "beside"
+			}
+		],
+		"vue/html-closing-bracket-newline": "off",
+		"vue/singleline-html-element-content-newline": "off",
+		"multiline-ternary": "off",
+		"operator-linebreak": "off",
+		"object-shorthand": "off",
+		"vue/component-tags-order": "off",
+		"vue/html-indent": "off",
+		"object-property-newline": "off"
+	}
+}
