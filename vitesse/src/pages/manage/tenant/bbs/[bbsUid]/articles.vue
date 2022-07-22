@@ -1,12 +1,12 @@
 <script setup lang="ts">
 const props = defineProps({
-  uid: String
+  bbsUid: String
 })
 </script>
 
 <template>
   <div>
-    <div>new</div>
-    <div>{{ uid }}</div>
+    <div>article</div>
+    <div>{{ bbsUid }}</div>
   </div>
 </template>

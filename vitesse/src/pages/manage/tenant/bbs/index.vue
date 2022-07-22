@@ -33,7 +33,7 @@ handleSubmit(data.value, defaultPage)
 
 <template>
   <div>
-    <SimpSearch :data="data" :on-submit="handleSubmit">
+    <SimpSearch title="검색 조건" :data="data" :on-submit="handleSubmit">
       <template #default="{ data }">
         <el-descriptions :column="2" border>
           <el-descriptions-item label="승인여부" label-align="right" align="left">

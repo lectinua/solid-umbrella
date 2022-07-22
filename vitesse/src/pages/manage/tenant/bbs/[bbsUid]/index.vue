@@ -8,9 +8,10 @@ import type { Pagination } from '~/apis/mock'
 import { defaultPage, join } from '~/apis/mock'
 
 const props = defineProps({
-  uid: String
+  bbsUid: String
 })
 const options = ref<SearchOptions>({
+  uid: props.bbsUid + '',
   apvAt: '',
   bbsTp: '',
   option: '',
@@ -21,12 +22,12 @@ const options = ref<SearchOptions>({
 })
 const list = ref<Array<Mock>>([])
 const page = ref<Pagination>(defaultPage)
-const bbsTp = ref<Array<SysCode>>([])
+const bbsTpCds = ref<Array<SysCode>>([])
 
 const router = useRouter()
 
-code('MENU_TP_CD').then(list => bbsTp.value = list)
-api.detail(props.uid + '').then(res => options.value = join(options.value, parse(res).data))
+code('BBS_TP_CD').then(list => bbsTpCds.value = list)
+api.detail(props.bbsUid + '').then(res => options.value = join(options.value, parse(res).data))
 
 function handleSubmit(values: SearchOptions, pagination: Pagination) {
   api.page(values, pagination).then((res) => {
@@ -43,7 +44,7 @@ handleSubmit(options.value, defaultPage)
 
 <template>
   <div>
-    <SimpSearch :data="options" :on-submit="handleSubmit">
+    <SimpSearch title="테넌트 정보/검색 조건" :data="options" :on-submit="handleSubmit">
       <template #default="{ data }">
         <el-descriptions :column="2" border>
           <el-descriptions-item label="서비스 > 테넌트" label-align="right" align="left" min-width="150px">
@@ -55,7 +56,7 @@ handleSubmit(options.value, defaultPage)
           <el-descriptions-item label="게시판 유형" label-align="right" align="left" min-width="150px">
             <el-select v-model="data.bbsTp">
               <el-option label="전체" value="" />
-              <el-option v-for="opt in bbsTp" :key="opt.code" :label="opt.codeNm" :value="opt.code" />
+              <el-option v-for="opt in bbsTpCds" :key="opt.code" :label="opt.codeNm" :value="opt.code" />
             </el-select>
           </el-descriptions-item>
           <el-descriptions-item label="검색조건" label-align="right" align="left" min-width="150px">
@@ -72,7 +73,7 @@ handleSubmit(options.value, defaultPage)
         </el-descriptions>
       </template>
     </SimpSearch>
-    <SimpList mt title="테넌트 게시판 목록" :list="list"
+    <SimpList mt title="테넌트 게시판 유형 목록" :list="list"
               :is-paging="true" :page="page" :on-submit="handleSubmitPage">
       <template #default>
         <el-table-column type="index" prop="번호" width="50" align="center" />
@@ -80,7 +81,8 @@ handleSubmit(options.value, defaultPage)
         <el-table-column prop="bbsTpCd" label="유형" align="center" />
         <el-table-column prop="bbsNm" label="게시판명">
           <template #default="scope">
-            <router-link underline hover-cursor-pointer :to="`/manage/tenant/bbs/${uid}/detail`">
+            <router-link underline hover-cursor-pointer
+                         :to="`/manage/tenant/bbs/${props.bbsUid}/new?id=${scope.row.uid}`">
               {{ scope.row.bbsNm }}
             </router-link>
           </template>
@@ -93,14 +95,14 @@ handleSubmit(options.value, defaultPage)
         <el-table-column label="게시글관리" width="100">
           <template #default>
             <el-button style="padding: 0 24px; width: 100%"
-                       @click="router.push(`/manage/tenant/bbs/${uid}/articles`)">
+                       @click="router.push(`/manage/tenant/bbs/${bbsUid}/articles`)">
               이동
             </el-button>
           </template>
         </el-table-column>
       </template>
       <template #buttons-bottom>
-        <el-button @click="router.push(`/manage/tenant/bbs/${uid}/new`)">신규</el-button>
+        <el-button @click="router.push(`/manage/tenant/bbs/${props.bbsUid}/new`)">신규</el-button>
         <el-button @click="router.push(`/manage/tenant/bbs`)">목록</el-button>
       </template>
     </SimpList>
