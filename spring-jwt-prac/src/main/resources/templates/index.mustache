@@ -1,0 +1,76 @@
+<html lang="ko">
+<head>
+    <style>
+        form { border: 1px solid; border-radius: 4px; padding: 24px 36px; display: flex; flex-direction: column }
+        form h3 { margin-top: 0; text-align: center }
+        form h3 .sub { font-weight: lighter; font-size: 13px; color: darkgray }
+        form input, textarea { margin-bottom: 6px }
+        textarea { padding: 6px }
+        #token { border: 1px solid; padding: 6px; min-height: 30px; margin-top: 0; word-break: break-word }
+    </style>
+</head>
+<body>
+    <form id="form">
+        <h3>
+            set token
+            <div class="sub">expires in 1 minute</div>
+        </h3>
+        <i>Id</i>
+        <input type="text" name="userId">
+        <button type="submit">OK</button>
+    </form>
+
+    <form>
+        <h3>valid check</h3>
+        <textarea id="contents" cols="30" readonly>not checked yet</textarea>
+        <button id="valid" type="button">CHECK</button>
+    </form>
+
+    <form>
+        <h3>token</h3>
+        <p id="token"></p>
+        <button id="remove" type="button">REMOVE</button>
+    </form>
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+const form = document.forms['form']
+form.addEventListener('submit', onSubmit)
+
+document.getElementById('valid').addEventListener('click', onClick)
+const contents = document.getElementById('contents')
+
+const label = document.getElementById('token')
+const remove = document.getElementById('remove')
+remove.addEventListener('click', onRemove)
+
+function init() {
+    setToken(window.sessionStorage.getItem('token'))
+}
+init()
+
+function onSubmit(event) {
+    axios.post('http://localhost:8081/sign', new FormData(form))
+            .then(res => setToken(res.data))
+    event.preventDefault()
+}
+function setToken(token) {
+    if (token)
+        window.sessionStorage.setItem('token', token)
+    else
+        window.sessionStorage.removeItem('token')
+    label.innerText = token || 'empty'
+}
+
+function onClick(event) {
+    axios.get(`http://localhost:8081/valid?token=${window.sessionStorage.getItem('token')}`)
+            .then(() => contents.value = 'valid token')
+            .catch(err => contents.value = err.response.data.message)
+    event.preventDefault()
+}
+
+function onRemove() {
+    setToken()
+}
+</script>
